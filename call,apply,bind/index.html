@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//call
+
+		// Function.prototype.call = function (ele) {
+		// 	if (typeof this !== 'function') {
+		// 		throw new Error('is not a function')
+		// 	}
+		// 	ele = ele ? Object(ele) : window;
+		// 	ele.fn = this;
+
+		// 	const args = [...arguments].slice(1);
+		// 	const res = ele.fn(args);
+		// 	delete ele.fnl
+		// 	return res;
+		// }
+
+		//apply
+
+		// Function.prototype.apply = function (ele) {
+		// 	if (typeof this !== 'function') {
+		// 		throw new Error('is not a function');
+		// 	}
+
+		// 	ele = ele ? Object(ele) : window
+		// 	ele.fn = this;
+		// 	const args = [...arguments[1]]
+		// 	const res = ele.fn(args);
+		// 	delete ele.fn
+		// 	return res
+		// }
+
+		//bind
+
+		// Function.prototype.bind = function (ele) {
+		// 	if (typeof this !== 'function') {
+		// 		throw new Error('is not a function')
+		// 	}
+		// 	ele.fn = this;
+		// 	const args = [...arguments].slice(1);
+		// 	return function () {
+		// 		const res = ele.fn(args);
+		// 		delete ele.fn;
+		// 		return res
+		// 	}
+
+		// }
+	</script>
+</body>
+
+</html>

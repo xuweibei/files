@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//promise
+		const isFunction = fn => typeof fn === 'function';
+		const PENDING = 'PENDING';
+		const FULFILLED = 'FULFILLED';
+		const REJECTED = 'REJECTED';
+		class MyPromise {
+			constructor(handle) {
+				if (!isFunction(handle)) {
+					throw new Error('is not a function')
+				}
+				this._status = PENDING;
+				this._value = undefined;
+				this._fulfilledQueues = [];
+				this._rejectedQueues = [];
+				try {
+					handle(this._resolve, this._reject)
+				} catch (err) {
+					this._rejec(err)
+				}
+			}
+			_resolve = (val) => {
+				const run = () => {
+					if (this._status !== 'PENDING') return;
+					this._status = FULFILLED;
+					const runFulfilled = value => {
+						let cb;
+						while (cb = this._fulfilledQueues.shift()) {
+							cb(value)
+						}
+					}
+					const runRejected = value => {
+						let cb;
+						while (cb = this._rejectedQueues.shift()) {
+							cb(value)
+						}
+					}
+
+					if (val instanceof MyPromise) {
+						val.then(value => {
+							this._value = value;
+							runFulfilled(value)
+						}, err => {
+							this._value = err;
+							runRejected(err)
+						})
+					} else {
+						this._value = val;
+						runFulfilled(val)
+					}
+				}
+				run()
+			}
+			_reject = err => {
+				if (this._status !== 'PENDING') return;
+				const run = () => {
+					this._status = 'REJECTED';
+					this._value = err;
+					let cb;
+					while (cb = this._rejectedQueues.shift()) {
+						cb(err)
+					}
+				}
+				run()
+			}
+
+			then(onFulfilled, onRejected) {
+				const { _status, _value } = this;
+				return new MyPromise((onFulfilledNext, onRejectedNext) => {
+					let fulfilled = value => {
+						try {
+							if (!isFunction(onFulfilled)) {
+								onFulfilledNext(value)
+							} else {
+								let res = onFulfilled(value);
+								if (res instanceof MyPromise) {
+									res.then(onFulfilledNext, onRejectedNext)
+								} else {
+									onFulfilled(value)
+								}
+							}
+						} catch (err) {
+							onRejectedNext(err)
+						}
+					}
+					let rejected = err => {
+						try {
+							if (!isFunction(onFunlfilled)) {
+								onRejectedNext(err)
+							} else {
+								let res = onRejected(err);
+								if (res instanceof MyPromise) {
+									res.then(onFulfilledNext, onRejectedNext)
+								} else {
+									onRejectedNext(res)
+								}
+							}
+						} catch (error) {
+							onRejectedNext(error)
+						}
+					}
+					switch (_status) {
+						case 'PENDING':
+							this._fulfilledQueues.push(fulfilled);
+							this._rejectedQueues.push(rejected);
+							break;
+						case 'FULFILLED':
+							fulfilled(_value);
+							break;
+						case 'REJECTED':
+							rejected(_value)
+							break;
+					}
+				})
+			}
+
+		}
+	</script>
+</body>
+
+</html>
