@@ -4,6 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>flex</title>
+    <style>
+      #box {
+        display: flex;
+        height: 300px;
+        /* width: 100px; */
+        /* flex-wrap: wrap; */
+        /* flex-flow: column-reverse nowrap; */
+        flex-direction: row;
+        /* justify-content: flex-start; */
+        align-items: stretch;
+        /* align-content: flex-end; */
+        border: 1px solid black;
+        width: 20px;
+      }
+      #box div {
+        width: 20px;
+        border: 1px solid red;
+      }
+      #box span {
+        width: 20px;
+        height: 60px;
+        border: 1px solid red;
+      }
+    </style>
+    <script>
+      /*
+			box 父级的属性
+					flex-direction:   // 排列方向
+								row|       // 从左至右
+								row-reverse| //从右至左
+								column| // 从上至下
+								column-reverse; // 从下至上
+					flex-wrap:  //定义子级换行情况
+								wrap|  //可以换行
+								nowrap| //不可换行
+								wrap-reverse  //可以换行，并且是反着来的，从下至上排列
+					flex-flow: // flex-direction和flex-wrap 简写   
+								row nowrap
+						顺序不能调换，如果只写一个也能生效
+					justify-content:  //子级在主轴上的排列方式
+							flex-start    //默认，从主轴开始的位置到结束的位置
+							flex-end      //排列在主轴的尾部，子级的最后一项从尾部往上排
+							center     //居中
+							space-between //首尾子级往主轴的两端排列,其余子级按比例将剩余空间在中间排列，如果只有一个子级，则排在主轴首位
+							space-around // 每个子级之间以固定距离分开，如果只有一个，则将子级放到中间
+					align-items:  //子级的排列
+							flex-start //从主轴开始位置排列
+							flex-end   //从主轴垂直的方向的末尾进行排列
+							center   //让所有子级居中  
+							baseline  //按照子级文字的位置进行排列
+							stretch  //如果子级未设置高度或为auto则子级高度撑满父级  默认值 
+				子级属性
+				  order  定义子级的排列顺序数值越小排名越靠前 默认为0
+					flex-grow  定义父级有剩余空间时，放大的比例，默认为0
+					flex-shrink 定义父级空间不足时，缩放的比例，默认为1。设置0，则不缩放
+					flex-basis  定义了子级在分配多余空间之前，子级占据的主轴空间，浏览器根据这个属性计算主轴是否有多余空间，默认为auto；
+					 可以设置为width属性一样的值
+					flex  是flex-grow/flex-shrink/flex-basis属性的简写 默认值 0 1 auto
+	        align-self 设置单个子级自己的对齐方式
+					 auto 继承父级，其他和align-items的值一样
+	*/
+    </script>
   </head>
-  <body></body>
+  <body>
+    <div id="box">
+      <span>1</span>
+      <div style="flex-shrink: 0">2</div>
+      <div style="flex-shrink: 0; width: 30px">3</div>
+      <div style="flex-shrink: 0; flex-basis: 30px">4</div>
+      <!-- <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
+      <div>9</div>
+      <div>10</div>
+      <div>11</div>
+      <div>12</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div>
+      <div>13</div>
+      <div>14</div>
+      <div>15</div> -->
+    </div>
+  </body>
 </html>
