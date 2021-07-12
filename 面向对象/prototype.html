@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // function Shop(name, price) {
+      //   this.name = name;
+      //   this.price = price;
+      // }
+      // function Person(name, age) {
+      //   this.name = name;
+      //   this.age = age;
+      // }
+      // Person.prototype.sayHi = function () {
+      //   alert(this.name);
+      // };
+      // const xiaoming = new Person('小明');
+      // console.log(Person.prototype.isPrototypeOf(xiaoming));
+      // console.log(Object.getPrototypeOf(xiaoming) === Person.prototype);
+
+      // function Haha(name) {
+      //   this.name = name;
+      // }
+
+      // Haha.prototype = {
+      //   construct: Haha,
+      //   name: 123,
+      //   say: function () {
+      //     alert(this.name);
+      //   },
+      // };
+      // const lala = new Haha('xiaoming');
+      // Haha.prototype.say = function () {
+      //   alert(this.name);
+      // };
+      // lala.say();
+
+      // function Haha(name) {
+      //   this.name = name;
+      //   alert(1);
+      //   if (typeof this.say !== 'function') {
+      //     Haha.prototype.say = function () {
+      //       alert(this.name);
+      //     };
+      //   }
+      // }
+      // const l = new Haha('22');
+      // const o = new Haha('33');
+      function Haha(name) {
+        this.name = name;
+        return { ll: 2 };
+        // const o = new Object();
+        // o.name = name;
+        // return o;
+      }
+
+      const l = new Haha(12);
+      console.log(l);
+      console.log(l instanceof Haha);
+    </script>
+  </body>
+</html>
