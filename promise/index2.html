@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const STATUS = {
+        PENDING: 'pending',
+        FULFILLED: 'fulfilled',
+        REJECTED: 'rejected',
+      };
+      class PromiseMy {
+        constructor(haha) {
+          this.status = STATUS.PENDING;
+          this.value = undefined;
+          this.reason = undefined;
+          this.onResolveCallbacks = [];
+          this.onRejectedCallbacks = [];
+          const resolve = (val) => {
+            console.log(val);
+            if (this.status === STATUS.PENDING) {
+              this.status = STATUS.FULFILLED;
+              this.value = val;
+              this.onRejectedCallbacks.forEach((fn) => fn());
+            }
+          };
+          const reject = (val) => {
+            if (this.status === STATUS.PENDING) {
+              this.status = STATUS.REJECTED;
+              this.reason = val;
+              this.onRejectedCallbacks.forEach((item) => item());
+            }
+          };
+          try {
+            haha(resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        }
+
+        then(onfulfilled, onrejected) {
+          onfulfilled =
+            typeof onfulfilled === 'function' ? onfulfilled : (x) => x;
+          onrejected =
+            typeof onrejected === 'function'
+              ? onrejected
+              : (err) => {
+                  throw err;
+                };
+          console.log(this.value);
+          let promise2 = new PromiseMy((resolve, reject) => {
+            if (this.status === STATUS.FULFILLED) {
+              setTimeout(() => {
+                try {
+                  let x = onfulfilled(this.value);
+                  resolvePromise(promise2, x, resolve, reject);
+                } catch (err) {
+                  reject(err);
+                }
+              }, 0);
+            }
+            if (this.status === STATUS.REJECTED) {
+              setTimeout(() => {
+                try {
+                  let x = onrejected(this.reason);
+                  resolvePromise(promise2, x, resolve, reject);
+                } catch (err) {
+                  console.log(err);
+                }
+              }, 0);
+            }
+            if (this.status === STATUS.PENDING) {
+              this.onResolveCallbacks.push(() => {
+                setTimeout(() => {
+                  try {
+                    let x = onfulfilled(this.value);
+                    resolvePromise(promise2, x, resolve, reject);
+                  } catch (err) {
+                    reject(err);
+                  }
+                }, 0);
+              });
+              this.onRejectedCallbacks.push(() => {
+                try {
+                  let x = onrejected(this.value);
+                  resolvePromise(promise2, x, resolve, reject);
+                } catch (err) {
+                  reject(err);
+                }
+              });
+            }
+          });
+          return promise2;
+        }
+        catch(err) {
+          return this.then(null, err);
+        }
+      }
+
+      function resolvePromise(promise2, x, resolve, reject) {
+        if (x === promise2) {
+          return reject(new TypeError('返回值错误'));
+        }
+        if (
+          (typeof x === 'object' && typeof x !== null) ||
+          typeof x === 'function'
+        ) {
+          let called = false;
+          try {
+            let then = x.then;
+            if (typeof then === 'function') {
+              then.call(x, (y) => {
+                if (called) return;
+                called = true;
+                resolvePromise(promise2, y, resolve, reject);
+              });
+            } else {
+              resolve(x);
+            }
+          } catch (err) {
+            if (called) return;
+            called = true;
+            reject(err);
+          }
+        } else {
+          resolve(x);
+        }
+      }
+
+      // new PromiseMy((resolve, reject) => {
+      //   const a = new PromiseMy();
+      //   resolve(a);
+      //   return;
+      // }).then((res) => {
+      //   console.log(res);
+      // });
+      new Promise((resolve, reject) => {
+        // const a = new Promise();
+        resolve(3);
+      }).then((res) => {
+        console.log(res);
+      });
+    </script>
+  </body>
+</html>

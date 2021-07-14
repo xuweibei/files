@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function deep(obj) {
+        const objnew = Array.isArray(obj) ? [] : {};
+        if (typeof obj === 'object') {
+          for (let i in obj) {
+            if (obj.hasOwnProperty(i)) {
+              if (typeof obj[i] === 'object') {
+                objnew[i] = deep(obj[i]);
+              } else {
+                objnew[i] = obj[i];
+              }
+            }
+          }
+        }
+        return objnew;
+      }
+
+      const aa = {
+        a: 1,
+        fn: () => {
+          console.log(this.a);
+        },
+        haha: {
+          arr: [1, 2, 3],
+          obj: { lll: 12 },
+          a: 2,
+          hehe: null,
+          jj: () => {
+            console.log(this.a);
+          },
+        },
+        lala: undefined,
+        hehe: null,
+      };
+      deep(aa).haha.arr.push(4);
+      console.log(deep(aa).haha.arr);
+      console.log(JSON.parse(JSON.stringify(aa)));
+      console.log(aa);
+
+      /**   总结
+       *
+       * 	 数组都可以拷贝
+       *   JSON.parse(JSON.stringify())
+       *    function、undefined、深层次的对象都直接忽略，null可以拷贝
+       *   deep()
+       *    null会直接忽略
+       * */
+    </script>
+  </body>
+</html>
