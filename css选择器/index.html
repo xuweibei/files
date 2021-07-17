@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* div > p {
+        color: red;
+      } */
+
+      /* .pt ~ p {
+        color: yellow;
+      } */
+
+      /* .po + .pt {
+        color: red;
+      } */
+      /* li:nth-child(1) {
+        color: red;
+      } */
+      /* #pp {
+        color: blue;
+      } */
+      li:first-child {
+        color: red;
+      }
+      /* [haha] {
+        color: green;
+      }
+      .li1 {
+        color: yellow;
+      } */
+      div li {
+        color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p class="po">12</p>
+      <p class="pt">34</p>
+      <p class="p3t">78</p>
+      <p class="p3t4">78</p>
+      <span><p>56</p></span>
+    </div>
+    <ul>
+      <li haha="lala" class="li1" id="pp">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <script>
+      /**
+       * !important 权重最高
+       * id选择器 1000
+       * 类选择器  10
+       *
+       * > 子类选择器 指向的是第一层子级的对应的内容
+       * 空格 比如 div p指向的是div下的所有p
+       * ~ .pt~p 指pt这个元素同级之下的所有p元素 可能多个
+       * + .po+p 指的是po这个元素相邻的一个p元素 一个
+       *
+       *
+       *
+       * !important>行间>id> 伪类>类>属性选择器>元素选择器
+       *  100000    1000 100 10  10   10         1
+       */
+    </script>
+  </body>
+</html>
