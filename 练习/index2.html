@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //            let timer = null;
+      //            function d() {
+      //              timer && clearTimeout(timer);
+      //              timer = setTimeout(() => {}, 300);
+      //            }
+
+      //            let onOff = false;
+      //            function fn() {
+      //              if (onOff) {
+      //                return;
+      //              }
+      //              onOff = true;
+      //              console.log(1);
+      //              setTimeout(() => {
+      //                onOff = false;
+      //              }, 1000);
+      //      			}
+
+               var a = 10;
+          (function () {​​​
+      console.log(a) //undefined
+      a = 5
+      console.log(window.a) //10
+      var a = 20;
+      console.log(a) //20
+           }​​​)()
+
+      // function Foo() {
+      //   Foo.a = function () {
+      //     console.log(1);
+      //   };
+      //   this.a = function () {
+      //     console.log(2);
+      //   };
+      // }
+      // Foo.prototype.a = function () {
+      //   console.log(3);
+      // };
+      // Foo.a = function () {
+      //   console.log(4);
+      // };
+      // Foo.a(); //4
+      // let obj = new Foo();
+      // obj.a(); //2
+      // Foo.a(); //1
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Function.prototype.bind = function (content) {
+      //   if (typeof content !== 'object') {
+      //     new Error('is not a function');
+      //     return;
+      //   }
+
+      //   content.fn = this;
+      //   const data = arguments.slice(1);
+
+      //   return function (val) {
+      //     const end = data.concat(val);
+      //     content.fn(...end);
+      //     delete content.fn;
+      //   };
+      // };
+
+      // class Pan {
+      //   constructor(props) {
+      //     super(props);
+      //   }
+      // }
+
+      // class Child {}
+      // Pan(Child);
+
+      // const timer = null;
+      // function fn() {
+      //   timer && clearTimeout(timer);
+
+      //   timer = setTimeout(() => {
+      //     console.log('do someing');
+      //   }, 300);
+      // }
+
+      // let onOff = false;
+      // function ls() {
+      //   if (onOff) {
+      //     return;
+      //   }
+      //   onOff = true;
+      //   setTimeout(() => {
+      //     console.log('do someing');
+      //     onOff = false;
+      //   }, 300);
+      // }
+
+      function P() {}
+
+      function Child() {
+        P.call(this);
+      }
+
+      Child.prototype = P.prototype;
+
+      class P {
+        static so = () => {};
+      }
+
+      class Child {
+        constructor(props) {
+          super(props);
+          new p();
+        }
+      }
+
+      function fn(arr) {
+        // return arr.map(item=>)
+      }
+    </script>
+  </body>
+</html>
